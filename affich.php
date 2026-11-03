@@ -8,9 +8,9 @@
     </head>
 </html>
 <?php
-$C=mysqli_connect("localhost","root","","exelib") or die(mysqli_connect_error());
+$C=new PDO("mysql:host=localhost;dbname=exelib","root","");
 $rq="SELECT * FROM exercice";
-$rs=mysqli_query($C,$rq);
+$rs=$C->query($rq);
 ?>
 <table border="1">
 <tr>
@@ -21,7 +21,7 @@ $rs=mysqli_query($C,$rq);
 <th> Action </th>
 </tr>
 <?php
-while($x=mysqli_fetch_assoc($rs)){ ?>
+while($x=$rs->fetch(PDO::FETCH_ASSOC)){ ?>
     <tr>
         <td><?php echo($x['id']) ?></td> 
         <td><?php echo($x['titre']) ?></td>
@@ -34,4 +34,5 @@ while($x=mysqli_fetch_assoc($rs)){ ?>
 </tr>
 <?php } ?>
 </table>
+
 
