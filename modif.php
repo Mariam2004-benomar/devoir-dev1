@@ -1,19 +1,19 @@
 <?php
-$C=mysqli_connect("localhost","root","","exelib")or die(mysqli_connect_error());
+$C=new PDO("mysql:host=localhost;dbname=exelib","root","");
 if (isset($_POST['titre'])){
     $id=$_GET['id'];
     $titre=$_POST['titre'];
     $auteur=$_POST['auteur'];
     $date_creation=$_POST['date_creation'];
     $S="UPDATE exercice SET titre='$titre',auteur='$auteur',date_creation='$date_creation' WHERE id=$id";
-    mysqli_query($C,$S);
+    $C->query($S);
     header('LOCATION: affich.php');
     exit();
   };
 $id=$_GET['id'];
 $rq="SELECT * FROM exercice WHERE id=$id";
-$rs=mysqli_query($C,$rq);
-$x=mysqli_fetch_assoc($rs);
+$rs=$C->query($rq);
+$x=$rs->fetch(PDO::FETCH_ASSOC);
 ?>
 <form method="POST" action="modif.php?id= <?php echo $id ?>" >
 TITRE :
